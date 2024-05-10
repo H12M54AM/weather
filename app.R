@@ -4,67 +4,76 @@ library(httr)
 library(jsonlite)
 library(lubridate)
 
-ui <- fluidPage(div(
-  class = "intro",
-  titlePanel("Dashboard - Weather Reports"),
-  h4(
-    "Powered by ",
-    actionLink("website", "edwardcreates.ca", onclick = "window.open('https://www.edwardcreates.ca/', '_blank')")
+ui <- fluidPage(
+  div(
+    class = "intro",
+    titlePanel("Dashboard - Weather Reports"),
+    h4(
+      "Powered by ",
+      actionLink("website", "edwardcreates.ca", onclick = "window.open('https://www.edwardcreates.ca/', '_blank')")
+    ),
+    actionButton("github", "", onclick = "window.open('https://github.com/H12M54AM/weather')", icon = icon("github")),
+    actionButton(
+      "linkedin",
+      "",
+      onclick = "window.open('https://www.linkedin.com/in/edward-naidoo-595ab5224/')",
+      icon = icon("linkedin")
+    ),
+    actionButton("devto", "", onclick = "window.open('https://dev.to/edward_naidoo')", icon = icon("dev")),
   ),
   
-),
-sidebarLayout(
-  sidebarPanel(
-    card(
-      actionButton("van", "Vancouver", icon = icon("building")),
-      actionButton("bur", "Burnaby", icon = icon("building")),
-      actionButton("rich", "Richmond", icon = icon("building")),
-      actionButton("sur", "Surrey", icon = icon("building")),
-      actionButton("lang", "Langley", icon = icon("building")),
-      actionButton("abby", "Abbotsford", icon = icon("building")),
-    )
-  ),
-  mainPanel(
-    actionButton("refresh", "Refresh", icon = icon("arrows-rotate")),
-    card(
-      div(
-        class = "k-hstack",
-        layout_columns(
-          value_box(
-            title = "Current Temp - Comming Soon...",
-            value = "XX ˚C",
-            showcase = bsicons::bs_icon("calendar-event"),
-            theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
-            class = "value_box"
-          ),
-          
-          value_box(
-            title = "Lowest Temperature",
-            value = textOutput("minTemp"),
-            showcase = bsicons::bs_icon("thermometer-low"),
-            theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
-            class = "value_box"
-          ),
-          
-          value_box(
-            title = "Highest Temperature",
-            value = textOutput("maxTemp"),
-            showcase = bsicons::bs_icon("thermometer-high"),
-            theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
-            class = "value_box"
-          ),
-          
-          value_box(
-            title = "Average Temperature",
-            value = textOutput("avgTemp"),
-            showcase = bsicons::bs_icon("calendar3"),
-            theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
-            class = "value_box"
+  sidebarLayout(
+    sidebarPanel(
+      card(
+        actionButton("van", "Vancouver", icon = icon("building")),
+        actionButton("bur", "Burnaby", icon = icon("building")),
+        actionButton("rich", "Richmond", icon = icon("building")),
+        actionButton("sur", "Surrey", icon = icon("building")),
+        actionButton("lang", "Langley", icon = icon("building")),
+        actionButton("abby", "Abbotsford", icon = icon("building")),
+      ),
+    ),
+    mainPanel(
+      actionButton("refresh", "Refresh", icon = icon("arrows-rotate")),
+      card(
+        div(
+          class = "k-hstack",
+          layout_columns(
+            value_box(
+              title = "Current Temp - Comming Soon...",
+              value = "XX ˚C",
+              showcase = bsicons::bs_icon("calendar-event"),
+              theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
+              class = "value_box"
+            ),
+            
+            value_box(
+              title = "Lowest Temperature",
+              value = textOutput("minTemp"),
+              showcase = bsicons::bs_icon("thermometer-low"),
+              theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
+              class = "value_box"
+            ),
+            
+            value_box(
+              title = "Highest Temperature",
+              value = textOutput("maxTemp"),
+              showcase = bsicons::bs_icon("thermometer-high"),
+              theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
+              class = "value_box"
+            ),
+            
+            value_box(
+              title = "Average Temperature",
+              value = textOutput("avgTemp"),
+              showcase = bsicons::bs_icon("calendar3"),
+              theme = value_box_theme(bg = "#e6f2fd", fg = "#0B538E"),
+              class = "value_box"
+            ),
           ),
         ),
-      ),
-      tags$style(
-        "
+        tags$style(
+          "
       .k-hstack {
         margin-top: 1rem;
         margin-bottom: 3rem;
@@ -76,20 +85,36 @@ sidebarLayout(
         width: 4/6;
       }
       "
+        ),
       ),
-    ),
-    
-    card(plotOutput("apiPlot")),
-    card(plotOutput("statPlot")),
-    card(plotOutput("boxPlot"))
+      
+      card(plotOutput("apiPlot")),
+      card(plotOutput("statPlot")),
+      card(plotOutput("boxPlot"))
+    )
   )
-))
+)
 
 server <- function(input, output) {
   observeEvent(input$refresh, {
     # Refresh the entire page
     session$reload()
   })
+  
+  # This function is a template used
+  # to allow users to click on any
+  # button and recieve different
+  # data in that city.
+  
+  # For example; A user can click
+  # the 'Vancouver' button and
+  # recieve weather data from
+  # vancity. If a user want to see
+  # Surrey, they can click Surrey.
+  dataDisplay <- function(api) {
+    
+    return(time)
+  }
   
   # Must pull weather data from Vancouver
   fetchData <- function() {
@@ -198,8 +223,7 @@ server <- function(input, output) {
   # Box Plot of the Temp Data
   output$boxPlot <- renderPlot({
     data <- fetchData()
-    boxplot(data$temp, main = "Boxplot of Todays Changing Weather", col =
-              "#e6f2fd")
+    boxplot(data$temp, main = "Boxplot of Todays Changing Weather", col = "#e6f2fd")
   })
   
   # Bar Chart of general Stats
