@@ -81,7 +81,7 @@ server <- function(input, output) {
   
   # Must pull weather data from Vancouver
   fetchData <- function() {
-    response <- GET("https://api.open-meteo.com/v1/forecast?latitude=49.2608724&longitude=-123.113952&hourly=temperature_2m&timeformat=unixtime&timezone=America%2FLos_Angeles&forecast_days=1")
+    response <- GET("https://api.open-meteo.com/v1/forecast?latitude=49.2497&longitude=-123.1193&hourly=temperature_2m&timeformat=unixtime&timezone=America%2FLos_Angeles&forecast_days=1")
     
     if (status_code(response) >= 200 && status_code(response) < 400) {
       data <- fromJSON(content(response, "text"))
@@ -132,25 +132,35 @@ server <- function(input, output) {
     # Isolates the Time from the Datetime
     unconverted_hours <- format(unconverted, "%H:%M")
     
-    
-    plot(unconverted, data$temp, type = "b", col = "#0B538E", xlab = "Hours in PST", ylab = "Temperature (°C)", main = chartTitle,
-         xlim = c(min(data$time), max(data$time)))
+    listOfHours <- c("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
+    xLimits <- 1:length(listOfHours)
+    plot(xLimits, data$temp, type = "b", col = "#0B538E", xlab = "Hours in PST", ylab = "Temperature (°C)", main = chartTitle,
+         xlim = range(xLimits)
+    )
+    #identify(xLimits, data$temp, labels = data$temp, n = length(data$temp), offset = 0.5)
+    text(xLimits, data$temp, labels = as.character(data$temp), pos = 1, offset = 1.1)
   })
   
   # Bar Chart of general Stats
   output$statPlot <- renderPlot({
     data <- fetchData()
     chartTitle = "Comparison of General Stats about Hourly Temps"
-    xaxis = c(min(data$temp, na.rm = TRUE), mean(data$temp, na.rm = TRUE), IQR(data$temp, na.rm = TRUE), max(data$temp, na.rm = TRUE))
+    yaxis = c(min(data$temp, na.rm = TRUE), mean(data$temp, na.rm = TRUE), IQR(data$temp, na.rm = TRUE), max(data$temp, na.rm = TRUE))
     xLabels = c("Min Temp", "Average Temp", "IQR", "Max Temp")
     
-    barplot(xaxis, 
+    barplot(yaxis, 
             xlab = "Stats",
             ylab = "Temperature ˚C",
             names.arg = xLabels,
             col = "#e6f2fd",
             main = chartTitle
     )
+    text(x = xLabels, 
+          
+         labels = yaxis,
+         names.arg = xLabels,
+         pos = 3,
+         offset = yaxis + 1)
   })
 }
 
