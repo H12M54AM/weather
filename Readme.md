@@ -4,7 +4,7 @@ This project was made using R and Shiny. Its pulls data from [open-meteo.com](ht
 
 # Table of Contents
 
--   [Weather App](#Weather App)
+-   [Weather App]
 
 -   [Page Layout]
 
