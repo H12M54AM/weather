@@ -2,6 +2,33 @@
 
 This project was made using R and Shiny. Its pulls data from [open-meteo.com](https://open-meteo.com/). Its a simple directory, with the `app.R` file holding the shiny application, the readme and some other testing files for my own personal use. It doesn't have any personal data, but the purpose of using those files are for my understanding.
 
+# Table of Contents
+
+-   [Weather App]
+
+```{=html}
+<!-- -->
+```
+-   [Page Layout]
+
+    -   [Home]
+
+    -   [Header]
+
+    -   [Sidebar]
+
+    -   [Main Section]
+
+        -   [Summary]
+
+        -   [Line Chart]
+
+        -   [Bar Chart]
+
+        -   [Box Plot]
+
+-   [Dependency List]
+
 # Page layout
 
 ## Home
@@ -24,7 +51,7 @@ I actually want a navbar for the side where the selection takes up the entire si
 
 ![](images/sidebar.png){width="298"}
 
-## Main Section 
+## Main Section
 
 The main section holds the actual data insights expressed as calculated numbers and charts.
 
@@ -38,7 +65,7 @@ The Refresh button will reset the R interpreter on the server. If things don't l
 
 ### Line Chart
 
-This is one of the most important insight. This chart will give you hour-by-hour LIVE temperatures in Vancity. Today was quite the shock in weather fluctuations. In 5 hours, the temperature increase by 7 degrees Celsius! That's a 40.7% increase in vancity heat!! Drake isn't the only one getting cooked.
+This is one of the most important insight. This chart will give you hour-by-hour LIVE temperatures in Vancity. Today was quite the shock in weather fluctuations. In 5 hours, the temperature increases by 7˚C or 1.4˚C/hour! That's a 40.7% increase in vancity!! Drake isn't the only one getting cooked. (This was May 10th, 2024).
 
 ### ![](images/Linechart.png)
 
@@ -56,9 +83,9 @@ The box plot does give a unique perspective relative to the bar chart. Sure we k
 
 ![](images/boxplot.png)
 
-# Dependancy List
+# Dependency List
 
-``` R
+``` r
 library(shiny)
 library(bslib)
 library(httr)
