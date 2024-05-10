@@ -2,6 +2,7 @@
 .Rhistory
 .Rapp.history
 /rsconnect 
+/Rproj.user
 
 # Session Data files
 .RData
