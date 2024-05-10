@@ -1,0 +1,13 @@
+name: weather
+title: weather
+username: datalearning
+account: datalearning
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11958673
+bundleId: 8594045
+url: https://datalearning.shinyapps.io/weather/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: weather-test.R
