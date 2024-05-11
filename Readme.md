@@ -2,30 +2,6 @@
 
 This project was made using R and Shiny. Its pulls data from [open-meteo.com](https://open-meteo.com/). Its a simple directory, with the `app.R` file holding the shiny application, the readme and some other testing files for my own personal use. It doesn't have any personal data, but the purpose of using those files are for my understanding.
 
-# Table of Contents
-
--   [Weather App](#Weather App)
-
--   [Page Layout]
-
-    -   [Home]
-
-    -   [Header]
-
-    -   [Sidebar]
-
-    -   [Main Section]
-
-        -   [Summary]
-
-        -   [Line Chart]
-
-        -   [Bar Chart]
-
-        -   [Box Plot]
-
--   [Dependency List]
-
 # Page layout
 
 ## Home
